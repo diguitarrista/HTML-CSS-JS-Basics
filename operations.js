@@ -1,5 +1,25 @@
 const toggleButton = document.getElementsByClassName('toggle-button')[0]
 const navbarLinks = document.getElementsByClassName('navbar-links')[0]
+const depositresetBtn = document.getElementById('deposit-resetBtn');
+const withdrawresetBtn = document.getElementById('withdraw-resetBtn');
+const transferresetBtn = document.getElementById('transfer-resetBtn');
+
+depositresetBtn.addEventListener('click', function() {
+  document.getElementById('depositValue').value = '';
+  document.getElementById('depositPassword').value = '';
+});
+
+withdrawresetBtn.addEventListener('click', function() {
+  document.getElementById('withdrawValue').value = '';
+  document.getElementById('withdrawPassword').value = '';
+});
+
+transferresetBtn.addEventListener('click', function() {
+  document.getElementById('accNumber').value = '';
+  document.getElementById('agencyNumber').value = '';
+  document.getElementById('transferValue').value = '';
+  document.getElementById('trasnferPassword').value = '';
+});
 
 toggleButton.addEventListener('click', () => {
   navbarLinks.classList.toggle('active')
@@ -42,42 +62,27 @@ class Operations {
   deposit(depositValue, password) {
     // Get the current timestamp
     var timestamp = new Date().toLocaleString();
-    // Validate the password
-    if (password === this.account.password) {
-      // Update the account balance with the deposited value
-      this.account.balance += depositValue;
-      // Add the deposit information to the deposit history
-      this.accountHistory.push({ depositValue: depositValue, timestamp: timestamp });
-    } else {
-      // Incorrect password
-      alert("Incorrect password. Please try again.");
-    }
+    // Update the account balance with the deposited value
+    this.account.balance += depositValue;
+    // Add the deposit information to the deposit history
+    this.accountHistory.push({ depositValue: depositValue, timestamp: timestamp });
   }
   withdraw(withdrawValue, password) {
     // Get the current timestamp
     var timestamp = new Date().toLocaleString();
-    // Validate the password
-    if (password === this.account.password) {
-      // Update the account balance with the deposited value
-      this.account.balance -= withdrawValue;
-      // Add the deposit information to the deposit history
-      this.accountHistory.push({ withdrawValue: withdrawValue, timestamp: timestamp });
-      } else {
-      // Incorrect password
-      alert("Incorrect password. Please try again.");
-    }
+    // Update the account balance with the deposited value
+    this.account.balance -= withdrawValue;
+    // Add the deposit information to the deposit history
+    this.accountHistory.push({ withdrawValue: withdrawValue, timestamp: timestamp });
   }
   transfer(transferValue, accNumber, agencyNumber, password){
     // Get the current timestamp
     var timestamp = new Date().toLocaleString();
-    // Validate the password
-    if (password === this.account.password) {
-      // Find the target account
-      var targetAccount = findAccount(accNumber);
-      //Add the transfer information to the target account history
-      this.account.balance -= transferValue;
-      this.accountHistory.push({ destinationAccountNumber: accNumber, transferValue: transferValue, timestamp: timestamp });
-    }
+    // Find the target account
+    var targetAccount = findAccount(accNumber);
+    //Add the transfer information to the target account history
+    this.account.balance -= transferValue;
+    this.accountHistory.push({ destinationAccountNumber: accNumber, transferValue: transferValue, timestamp: timestamp });
   }
   recieve(transferValue, sourceAccount){
     var timestamp = new Date().toLocaleString();
@@ -103,15 +108,18 @@ document.getElementById("depositBtn").addEventListener("click", function() {
   var password = document.getElementById("depositPassword").value;
   // Call the deposit method on the operations object with the deposit value and password
   if (accountOperation !== null) {
-    accountOperation.deposit(depositValue, password);
-    // Store account history in local storage
-    var accountHistoryJSON = accountOperation.getAccountHistoryJSON();
-    localStorage.setItem("accountHistory", accountHistoryJSON);
-    localStorage.setItem('newAccount', JSON.stringify(newAccount));
-    // Value deposited
-    alert("Value deposited!");
-  } else {
-    alert("Please verify the account first.");
+    if (password === newAccount.password) {
+      accountOperation.deposit(depositValue, password);
+      // Store account history in local storage
+      var accountHistoryJSON = accountOperation.getAccountHistoryJSON();
+      localStorage.setItem("accountHistory", accountHistoryJSON);
+      localStorage.setItem('newAccount', JSON.stringify(newAccount));
+      // Value deposited
+      alert("Value deposited!");
+    } else {
+      // Incorrect password
+      alert("Incorrect password. Please try again.");
+    }
   }
 });
 
@@ -122,15 +130,19 @@ document.getElementById("withdrawBtn").addEventListener("click", function() {
   var password = document.getElementById("withdrawPassword").value;
   // Call the deposit method on the operations object with the deposit value and password
   if (accountOperation !== null) {
-    accountOperation.withdraw(withdrawValue, password);
-    // Store account history in local storage
-    var accountHistoryJSON = accountOperation.getAccountHistoryJSON();
-    localStorage.setItem("accountHistory", accountHistoryJSON);
-    localStorage.setItem('newAccount', JSON.stringify(newAccount));
-    // Value withdraw
-    alert("Value withdrew!");
-  } else {
-    alert("Please verify the account first.");
+    if (password === newAccount.password) {
+      accountOperation.withdraw(withdrawValue, password);
+      // Store account history in local storage
+      var accountHistoryJSON = accountOperation.getAccountHistoryJSON();
+      localStorage.setItem("accountHistory", accountHistoryJSON);
+      localStorage.setItem('newAccount', JSON.stringify(newAccount));
+      // Value withdraw
+      alert("Value withdrew!");
+    }
+    else {
+      // Incorrect password
+      alert("Incorrect password. Please try again.");
+    }
   }
 });
 
@@ -159,15 +171,19 @@ transferBtn.addEventListener("click", function() {
       <p><b>Account balance: </b>$ ${targetAccount.balance}</p>
     `;
   if (accountOperation !== null) {
-    // Call the transfer method with the input values
-    accountOperation.transfer(transferValue, accNumber, agencyNumber, password);
-    // Store account history in local storage
-    var accountHistoryJSON = accountOperation.getAccountHistoryJSON();
-    localStorage.setItem("accountHistory", accountHistoryJSON);
-    localStorage.setItem('newAccount', JSON.stringify(newAccount));
-      // Value trasnfered
-      alert("Value transfered!");
+    if (password === newAccount.password) {
+      // Call the transfer method with the input values
+      accountOperation.transfer(transferValue, accNumber, agencyNumber, password);
+      // Store account history in local storage
+      var accountHistoryJSON = accountOperation.getAccountHistoryJSON();
+      localStorage.setItem("accountHistory", accountHistoryJSON);
+      localStorage.setItem('newAccount', JSON.stringify(newAccount));
+        // Value trasnfered
+        alert("Value transfered!");
     } else {
-      alert("Please verify the account first.");
+      // Incorrect password
+      alert("Incorrect password. Please try again.");
     }
+  }
 });
+
