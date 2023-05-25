@@ -1,0 +1,28 @@
+/* CREATE ACCOUNT ACCESS ACCOUNT */
+#account{display: flex;}
+#account form{text-align: left;}
+#accessAccount{height: 80%;}
+#name{width: 20em;}
+#password{width: 18em;}
+#verifyAccNumber{width: 15em;}
+#verifyAgency{width: 15.30em;}
+#verifyPassword{width: 18.45em;}
+
+/* SHOW INFO HOME.HTML */
+#accountInfo{
+  background-color: rgb(193, 225, 193);
+  width: 85%;
+  border-radius: 10px;
+}
+
+@media (max-width: 800px){
+  #account{flex-direction: column;}
+  #accessAccount{margin-top: 5%;}
+  #accountInfo h3{font-size: 3vw;}
+
+  #name{width: 20em;}
+  #password{width: 18.25em;}
+  #verifyAccNumber{width: 15em;}
+  #verifyAgency{width: 15.30em;}
+  #verifyPassword{width: 18em;}
+}

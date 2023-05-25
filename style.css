@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  top: 0;
+}
+body{
+  font-family: Lucida, sans-serif;
+  font-size: 1.5vw;
+}
+section{
+  width: 100%;
+  margin-top: 5%;
+}
+h1{
+  color: rgb(34, 139, 34);
+  text-align: center;
+  font-size: 2.5vw;
+  width: 75%;
+  margin-top: 0;
+  margin-bottom: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  background-color: rgb(193, 225, 193);
+}
+h2{
+  color: rgb(34, 139, 34);
+  text-align: left;
+  font-size: 1.5vw;
+}
+h3{
+  color: rgb(34, 139, 34);
+  text-align: center;
+  font-size: 1.5vw;
+  border-radius: 10px;
+  background-color: rgb(193, 225, 193);
+}
+p{
+  font-size: 1.25vw;
+  text-align: left;
+  margin-left: 8%;
+}
+input{
+  font-family: Lucida, sans-serif;
+  font-size: 1.35vw;
+  color: rgb(34, 139, 34);
+  background-color: rgb(193, 225, 193);
+}
+button{
+  font-family: Lucida, sans-serif;
+  text-align: center;
+  color: rgb(34, 139, 34);
+  background-color: rgb(193, 225, 193);
+  font-size: 1.5vw;
+  width: 40%;
+  padding: 2%;
+  border: 1px solid darkgreen;
+  border-radius: 50px;
+}
+
+/* BASIC CONTAINER */
+.container{
+  color: rgb(34, 139, 34);
+  width: 36%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid darkgreen;
+  padding: 5%;
+}
+
+/* TOPNAV */
+.navbar{
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  color: rgb(34, 139, 34);
+  width: 100%;
+  border-bottom: darkgreen solid 2px;
+}
+.brand-title {margin: .5rem;}
+.navbar-links {height: 100%;}
+.navbar-links ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+.navbar-links li {list-style: none;}
+.navbar-links li a{
+  display: block;
+  text-decoration: none;
+  color: rgb(34, 139, 34);
+  padding: 1rem;
+}
+.navbar-links li:hover{background-color: rgb(193, 225, 193);}
+
+.toggle-button{
+  position: absolute;
+  top: .75rem;
+  right: 1rem;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 5%;
+  height: 20px;
+}
+.toggle-button .bar {
+  height: 4px;
+  width: 100%;
+  background-color: rgb(34, 139, 34);
+  border-radius: 10px;
+  margin-bottom: 5%;
+}
+
+.buttons{
+  width: 60%;
+  display: flex;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-between;
+}
+
+footer{
+  color: rgb(34, 139, 34);
+  font-size: 2vw;
+  text-align: center;
+  width: auto;
+  margin-top: 5%;
+  padding: 2%;
+  background-color: rgb(193, 225, 193)
+}
+
+@media (max-width: 800px){
+  body, h1, p, input, button{font-size: 3vw;}
+  .container{width: 80%;}
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .brand-title{font-size: 3vw;}
+  .toggle-button {display: flex;}
+  .navbar-links {display: none;}
+  .navbar-links ul {
+    width: 100vw;
+    flex-direction: column;
+  }
+  .navbar-links ul li {text-align: center;}
+  .navbar-links ul li a {padding: .5rem 1rem;}
+  .navbar-links.active {
+    border-top: darkgreen solid 2px;
+    display: flex;}
+}

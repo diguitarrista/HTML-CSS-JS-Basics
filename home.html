@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
+    <title>JS Bank</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="brand-title"><b>@jsBanK</b></div>
+      <a href="#" class="toggle-button">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </a>
+      <div class="navbar-links">
+        <ul>
+          <li><a href="#"><b>Home</b></a></li>
+          <li><a href="#"><b>Contact</b></a></li>
+        </ul>
+      </div>
+    </nav>
+    <section id="account">
+      <div class="container">
+        <h1>Create Account</h1>
+        <form>
+            <label for="name">Name :</label>
+            <input type="text" id="name" name="name"><br></br>
+            <label for="password">Password :</label>
+            <input type="password" id="password" name="password">
+            <br><br>
+            <p>* Your password must have at least 6 characters</p>
+            <br>
+            <div class="buttons">
+              <button type="button" id="submitBtn"><b>Submit</b></button>
+              <button type="button" id="resetBtn"><b>Reset</b></button>
+            </div>
+            <br>
+            <div id='accountInfo'></div>
+        </form>
+      </div>
+      <div class="container" id="accessAccount">
+        <h1>Access Account</h1>
+        <form>
+          <label for="accountNumber">Account Number :</label>
+          <input type="text" id="verifyAccNumber" name="accountNumber"><br><br>
+          <label for="agency">Agency Number :</label>
+          <input type="text" id="verifyAgency" name="agency"><br><br>
+          <label for="password">Password :</label>
+          <input type="password" id="verifyPassword" name="password"><br><br><br>
+          <div class="buttons">
+            <button type="button" id="submitAccBtn"><b>Submit</b></button>
+            <button type="button" id="resetAccBtn"><b>Reset</b></button>
+          </div>
+        </form>
+      </div>
+    </section>
+    <footer>@jsBank Not a real bank</footer>
+    <script src="home.js"></script>
+    <script scr="responsive.js"></script>
+  </body>
+</html>

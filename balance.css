@@ -1,0 +1,40 @@
+/* BALANCE */
+#history{
+  color: rgb(34, 139, 34);
+  line-height: 200%;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 3%;
+  border: 1px solid darkgreen;
+}
+#accountBalanceInfo{
+  display: inline-block;
+  width: 40%;
+  padding: 3%;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  border-radius: 10px;
+  background-color: rgb(193, 225, 193);
+}
+
+table{
+  border-collapse: collapse;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+th{background-color: rgb(193, 225, 193);}
+th, td{
+  border: 1px solid darkgreen;
+  padding: 5px;
+}
+td{text-align: right;}
+
+@media (max-width: 800px){
+  table{width: 100%;}
+  #accountBalanceInfo {width: 50%;}
+  #balanceInfo h3{font-size: 3vw;}
+}

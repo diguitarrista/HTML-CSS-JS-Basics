@@ -1,0 +1,72 @@
+#operations, #transfer form{text-align: center;}
+
+#depositPassword, #withdrawPassword{margin-top: 2%;}
+
+#resultOperations, #transfer h2{
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+#resultData p{
+  color: rgb(34, 139, 34);
+  margin-top: 5%;
+}
+
+/* CONTAINERS CENTERED */
+#resultData, #resultOperations, #operations .container{
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+/* OPERATIONS */
+#operations{display: flex;}
+
+/* DEPOSIT AND WITHDRAW*/
+#depositValue{width: 15.50em}
+#withdrawValue{width: 15.50em;}
+#depositPassword{width: 17.1em;}
+#withdrawPassword{width: 18em;}
+
+/* TRANSFER */
+#transfer .container{
+  display: flex;
+  width: 86%;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+#transfer form{
+  width: 45%;
+  margin-left: 0;
+}
+#accNumber{width: 17em;}
+#agencyNumber{width: 17.5em;}
+#transferValue{width: 18.6em;}
+#trasnferPassword{width: 20.50em;}
+#transferInfo {
+  width: 45%;
+  margin-left: 2%;
+  margin-right: 2%
+}
+
+@media (max-width: 800px){
+  h2{font-size: 3vw;}
+  .container, #transfer .container{
+    width: 85%;
+    margin-bottom: 2%;
+  }
+  #operations, #transfer .container{
+    flex-direction: column;
+    margin-bottom: 1%;
+  }
+  #transfer form{
+    width: 100%;
+  }
+  #accNumber{width: 8.75em;}
+  #agencyNumber{width: 9em;}
+  #transferValue{width: 10em;}
+  #trasnferPassword{width: 11.9em;}
+
+  #transferInfo{
+    margin-top: 5%;
+    width: 100%;
+  }
+}
