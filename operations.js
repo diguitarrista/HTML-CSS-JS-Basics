@@ -24,6 +24,15 @@ function resetTransferForm() {
 toggleButton.addEventListener('click', () => {
   navbarLinks.classList.toggle('active')
 })
+depositresetBtn.addEventListener('click', () => {
+  resetDepositForm();
+})
+withdrawresetBtn.addEventListener('click', () => {
+  resetWithdrawForm();
+})
+transferresetBtn.addEventListener('click', () => {
+  resetTransferForm();
+})
 
 class Operations {
   constructor(account) {
@@ -117,7 +126,6 @@ document.getElementById("withdrawBtn").addEventListener("click", function() {
       // Incorrect password
       alert("Incorrect password. Please try again.");
       resetWithdrawForm();
-      localStorage.setItem('loggedAccount', JSON.stringify(loggedAccount));
     }
   }
 });
@@ -132,7 +140,7 @@ transferBtn.addEventListener("click", function() {
   const password = document.getElementById("trasnferPassword").value;
   // Find the target account
   targetAccount = findAccount(accounts, accNumber);
-  
+
   if (targetAccount === null) {
     alert("Account not found");
     resetTransferForm();
@@ -140,25 +148,23 @@ transferBtn.addEventListener("click", function() {
     alert("You can't transfer to yourself");
     resetTransferForm();
   } else {
-    // Add the value to the targetAccount
-    targetAccount.balance += parseFloat(transferValue);
-    // Transfer the value to the targetAccount
-    const sourceAccount = loggedAccount.accountNumber
-    targetOperation = new Operations(targetAccount);
-    targetOperation.recieve(transferValue, sourceAccount);
-    
-    transferInfo.innerHTML = `
-        <h1>Transfer Information</h1><br><br>
-        <p><b>Account number: </b>${accNumber}</p><br><br>
-        <p><b>Agency number: </b>${agencyNumber}</p><br><br>
-        <p><b>Transfer value: </b>$ ${transferValue}</p><br><br>
-        <p><b>Account balance: </b>$ ${targetAccount.balance}</p>
-      `;
-
     if (accountOperation !== null) {
       if (password === loggedAccount.password) {
         // Call the transfer method with the input values
         accountOperation.transfer(accounts, transferValue, accNumber, agencyNumber, password);
+        // Transfer the value to the targetAccount
+        const sourceAccount = loggedAccount.accountNumber
+        targetOperation = new Operations(targetAccount);
+        targetOperation.recieve(transferValue, sourceAccount);
+
+        transferInfo.innerHTML = `
+            <h1>Transfer Information</h1><br><br>
+            <p><b>Account number: </b>${accNumber}</p><br><br>
+            <p><b>Agency number: </b>${agencyNumber}</p><br><br>
+            <p><b>Transfer value: </b>$ ${transferValue}</p><br><br>
+            <p><b>Account balance: </b>$ ${targetAccount.balance}</p>
+          `;
+
         alert("Value transfered!");
         resetTransferForm();
         localStorage.setItem('loggedAccount', JSON.stringify(loggedAccount));
@@ -170,4 +176,5 @@ transferBtn.addEventListener("click", function() {
     }
   }
 });
+
 
