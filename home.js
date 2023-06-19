@@ -6,16 +6,17 @@ toggleButton.addEventListener('click', () => {
 })
 
 // ACCOUNT
-const accounts = {}
+var accountHistoryJSON = localStorage.getItem("accountHistory");
 
 // Define the Account class
 class Account {
-  constructor(name, password, accountNumber, agency, balance) {
+  constructor(name, password, accountNumber, agency, balance, operations) {
     this.name = name;
     this.password = password;
     this.accountNumber = accountNumber;
     this.agency = agency;
     this.balance = balance;
+    this.operations = operations;
   }
 }
 // Function to create a new account with random values
@@ -23,21 +24,22 @@ function createAccount(name, password) {
   // Generate random account number and agency
   const accountNumber = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
   const agency = Math.floor(Math.random() * (999 - 100 + 1)) + 100;
-
+  // Convert to string to verify latter
+  const accountNumberStr = accountNumber.toString();
+  const agencyStr = agency.toString();
   // Create a new Account object with the input values and random values
-  const account = new Account(name, password, accountNumber, agency, 0);
-
-  // Store the account information in a dictionary
-  const accountInfo = {
-    name: account.name,
-    password: account.password,
-    accountNumber: account.accountNumber,
-    agency: account.agency,
-    balance: account.balance
-  };
+  const account = new Account(name, password, accountNumberStr, agencyStr, 0, []);
   // Return the account information
-  return accountInfo;
+  return account;
 }
+
+var accs = [];
+// Push each account object into the accounts array
+accs.push(new Account("John Smith", "123456", "1234", "123", 1000, []));
+accs.push(new Account("Jane Doe", "abc123", "5678", "567", 5000, []));
+accs.push(new Account("Bob Johnson", "password456", "1111", "111", 2500, []));
+accs.push(new Account("Sara Lee", "password789", "2222", "222", 7500, []));
+accs.push(new Account("Tom Smith", "pswrd987", "3333", "333", 3000, []));
 
 // Get the form elements and add event listeners to the submit and reset buttons
 const submitBtn = document.getElementById('submitBtn');
@@ -47,14 +49,13 @@ submitBtn.addEventListener('click', function() {
   // Get the input values from the form
   const name = document.getElementById('name').value;
   const password = document.getElementById('password').value;
-
+  // Convert to string to verify latter
+  const nameStr = name.toString();
+  const passwordStr = password.toString();
   // Call the createAccount() function with the input values
-  const newAccount = createAccount(name, password);
-  accounts[newAccount.accountNumber] = newAccount;
-
+  const newAccount = createAccount(nameStr, passwordStr);
   // Access the div element to display the created account information
   const accountInfoDiv = document.getElementById('accountInfo');
-
   // Create a new paragraph element to display the account number and agency
   accountInfoDiv.innerHTML = `
       <br>
@@ -64,7 +65,8 @@ submitBtn.addEventListener('click', function() {
     `;
 
   alert("Account created!");
-
+  // Add the new account to the array
+  accs.push(newAccount);
   // Reset the form
   document.getElementById('name').value = '';
   document.getElementById('password').value = '';
@@ -77,45 +79,45 @@ resetBtn.addEventListener('click', function() {
 });
 
 // VERIFY ACCOUNT
-
 // Add click event listener to submitAccBtn button
 document.getElementById("submitAccBtn").addEventListener("click", function() {
   // Call verify() function to check account information
-  verify();
+  verify(accs);
   resetForm();
 });
 
 // Function to handle form reset
 function resetForm() {
-  document.getElementById("accountNumber").value = "";
-  document.getElementById("agency").value = "";
-  document.getElementById("password").value = "";
+  document.getElementById("verifyAccNumber").value = "";
+  document.getElementById("verifyAgency").value = "";
+  document.getElementById("verifyPassword").value = "";
 }
 
-var loggedInAccount = null; // Variable to store the logged-in account
-var acc = null; // Variable to store the instance of Operations
-
-function verify() {
+function verify(accounts) {
   // Retrieve input field values
   var accountNumberStr = document.getElementById("verifyAccNumber").value;
   var agencyStr = document.getElementById("verifyAgency").value;
-  var password = document.getElementById("verifyPassword").value;
-
-  // Convert accountNumber and agency to numbers
-  var accountNumber = parseInt(accountNumberStr);
-  var agency = parseInt(agencyStr);
-
-  // Check if the entered account number exists in the accounts dictionary
-  if (accountNumber in accounts) {
-    var account = accounts[accountNumber];
+  var passwordStr = document.getElementById("verifyPassword").value;
+  // Convert to string to verify
+  var accountNumberLog = accountNumberStr.toString();
+  var agencyNumberLog = agencyStr.toString();
+  var passwordLog = passwordStr.toString();
+  // Find the account
+  for (let i = 0; i < accounts.length; i++) {
+    if (accounts[i].accountNumber === accountNumberLog) {
+      var tryLoggedAccount = accounts[i];
+    }
+  }
+  // Verify the account
+  if (tryLoggedAccount === null) {
+    alert("Account not found");
+  } else {
     // Check if the entered agency and password match the stored values
-    if (account.agency === agency && account.password === password) {
+    if (tryLoggedAccount.agency === agencyNumberLog && tryLoggedAccount.password === passwordLog) {
       // Account verified
       alert("Account verified!");
-      // Store the logged-in account in the variable
       loggedInAccount = account;
-      // Store the created account information in localStorage
-      localStorage.setItem('loggedInAccount', JSON.stringify(loggedInAccount));
+      localStorage.setItem('loggedInAccount', JSON.stringify(tryLoggedAccount));
       // Redirect to account.html page
       window.location.href = "operations.html";
     } else {
@@ -124,10 +126,7 @@ function verify() {
       // Call resetForm() function to clear the form
       resetForm();
     }
-  } else {
-    // Account not found
-    alert("Account not found. Please check the account number.");
-    // Call resetForm() function to clear the form
-    resetForm();
   }
 }
+// Store the accounts
+localStorage.setItem('storedAccounts', JSON.stringify(accs));
