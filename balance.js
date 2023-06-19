@@ -5,21 +5,13 @@ toggleButton.addEventListener('click', () => {
   navbarLinks.classList.toggle('active')
 })
 
-// Retrieve account history from local storage
-var accountHistoryJSON = localStorage.getItem("accountHistory");
-if (accountHistoryJSON !== null) {
-  var accountHistory = JSON.parse(accountHistoryJSON);
-} else {
-  // No account history found in local storage
-  alert("No account history found.")
-}
-
 // Get the parent div to append the history entries
 var historyDiv = document.getElementById("history");
 
 // Parse the storedAccount string into an object
-const account = localStorage.getItem('newAccount');
+const account = localStorage.getItem('loggedAccount');
 const accountInfo = JSON.parse(account); // Parse the JSON string into an object
+const accountHistory = accountInfo.operations;
 
 // Get the div element with the id "accInfo"
 const divElement = document.getElementById("accountBalanceInfo");
@@ -60,19 +52,19 @@ accountHistory.forEach(function(entry) {
   const typeCell = row.insertCell();
   const amountCell = row.insertCell();
   if (entry.depositValue !== undefined) {
-    typeCell.textContent = "Deposit";
+    typeCell.textContent = "Deposited";
     amountCell.textContent = "$" + entry.depositValue;
   } else if (entry.withdrawValue !== undefined) {
     typeCell.textContent = "Withdrawal";
     amountCell.textContent = "$" + entry.withdrawValue;
   } else if (entry.transferValue !== undefined) {
-  typeCell.textContent = "Transferred to account number " + entry.destinationAccountNumber;
+  typeCell.textContent = "Transferred to the account number " + entry.destinationAccountNumber;
   amountCell.textContent = "$" + entry.transferValue;
 } else if (entry.recieveValue !== undefined) {
   typeCell.textContent = "Transferred from account number " + entry.sourceAccountNumber;
   amountCell.textContent = "$" + entry.recieveValue;
 }
-
+  
   const dateCell = row.insertCell();
   dateCell.textContent = entry.timestamp;
 
